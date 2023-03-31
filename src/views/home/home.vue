@@ -12,7 +12,9 @@
     <!-- 索引城市 -->
     <home-search-box/>
 
+    <home-categories/>
 
+    <home-content />
   </div>
 </template>
 
@@ -20,8 +22,14 @@
 
 import homeNavBar from './components/home-nav-bar.vue';
 import homeSearchBox from './components/home-search-box.vue';
+import useHomeStore from '../../store/modules/home';
+import homeCategories from './components/home-categories.vue';
+import homeContent from './components/home-content.vue';
 
-
+const homeStore = useHomeStore()
+homeStore.getHotSuggests()
+homeStore.getCategories()
+homeStore.getHomeList()
 
 </script>
 

@@ -39,6 +39,9 @@
       <div class="suggest">{{ item.tagText.text }}</div>
     </template>
   </div>
+  <div class="btn" @click="toSearch">
+    <span>搜索</span>
+  </div>
 </template>
 
 <script setup>
@@ -47,8 +50,8 @@ import useCityStore from '@/store/modules/city'
 import { storeToRefs } from 'pinia';
 import { ref } from 'vue';
 import useHomeStore from '@/store/modules/home'
-import ctcjs from 'ctcjs';
 import { formatMonthDay, diffDays } from '@/utils/format_date';
+import ctcjs from 'ctcjs'
 
 
 
@@ -79,8 +82,19 @@ const onConfirm = (value) => {
 
 //数据引入
 const homeStore = useHomeStore()
-homeStore.getHotSuggests()
+
 const { hotSuggests } = storeToRefs(homeStore)
+
+const toSearch = () => {
+  router.push({
+    path: '/search',
+    query: {
+      startDay: startDay.value,
+      endDay: endDay.value,
+      currentCity: currentCity.value.cityName
+    }
+  })
+}
 
 </script>
 
@@ -154,6 +168,19 @@ const { hotSuggests } = storeToRefs(homeStore)
     border-radius: 14px;
     font-size: 12px;
   }
+}
+
+.btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  width: 90%;
+  border-radius: 20px;
+  margin: 0 auto;
+  background: linear-gradient(45deg, var(--primary-color), #ffb584);
+   color: #fff;
+   font-size: 16px;
 }
 
 .session {

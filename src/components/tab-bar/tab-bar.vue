@@ -51,6 +51,8 @@ const isCurrent = (index, item) => {
   display: flex;
   height: 50px;
   border-top: 1px solid #eee;
+  background-color: #fff;
+  z-index: 99999;
   .tab-bar-item {
     flex: 1;
     display: flex;
