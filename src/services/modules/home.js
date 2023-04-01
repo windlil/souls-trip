@@ -12,11 +12,11 @@ export const getCategoriesApi = () => {
   })
 }
 
-export const getHomeListApi = () => {
+export const getHomeListApi = (page) => {
   return get_axios({
     url: '/home/houselist',
     params: {
-      page: 1
+      page
     }
   })
 }

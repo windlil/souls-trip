@@ -25,11 +25,25 @@ import homeSearchBox from './components/home-search-box.vue';
 import useHomeStore from '../../store/modules/home';
 import homeCategories from './components/home-categories.vue';
 import homeContent from './components/home-content.vue';
+import useScroll from '../../utils/useScroll';
+import { watch } from 'vue';
 
 const homeStore = useHomeStore()
 homeStore.getHotSuggests()
 homeStore.getCategories()
 homeStore.getHomeList()
+
+
+const { isScrollEnd } = useScroll()
+
+watch(isScrollEnd, () => {
+  console.log(isScrollEnd.value)
+  if(isScrollEnd.value) {
+    homeStore.getHomeList().then(() => {
+      isScrollEnd.value = false
+    })
+  }
+})
 
 </script>
 
@@ -40,8 +54,6 @@ homeStore.getHomeList()
       width: 100%;
     }
   }
-
-
 }
 
 .session {

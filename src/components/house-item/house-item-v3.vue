@@ -13,7 +13,7 @@
       <div class="price">
         <div class="finalPrice">￥{{ houseData.finalPrice }}</div>
         <div class="productPrice">￥{{ houseData.productPrice }}</div>
-        <div class="priceTipBadge">{{ houseData.priceTipBadge.text }}</div>
+        <div class="priceTipBadge">{{ houseData?.priceTipBadge?.text }}</div>
       </div>
     </div>
   </div>

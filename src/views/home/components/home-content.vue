@@ -24,8 +24,8 @@ const { homeList } = storeToRefs(homeStore)
 
 <style lang="less" scoped>
 .content {
-  padding: 10px 10px;
-
+  padding: 0 10px;
+  margin-bottom: 70px;
   .title h2 {
     font-size: 22px;
   }
