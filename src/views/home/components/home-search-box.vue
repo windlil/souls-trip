@@ -11,14 +11,14 @@
   <div class="session date-range" @click="calendarShow = true">
     <div class="start">
       <span class="top-span">入住</span>
-      <span class="bottom-span">{{ startDay }}</span>
+      <span class="bottom-span">{{ startDayStr }}</span>
     </div>
     <div class="stay">
       共{{ stayDay }}晚
     </div>
     <div class="end">
       <span class="top-span">离店</span>
-      <span class="bottom-span">{{ endDay }}</span>
+      <span class="bottom-span">{{ endDayStr }}</span>
     </div>
   </div>
 
@@ -52,7 +52,8 @@ import { ref } from 'vue';
 import useHomeStore from '@/store/modules/home'
 import { formatMonthDay, diffDays } from '@/utils/format_date';
 import ctcjs from 'ctcjs'
-
+import useMainStore from '../../../store/modules/main';
+import { computed } from '@vue/reactivity';
 
 
 const router = useRouter()
@@ -64,18 +65,18 @@ const cityStore = useCityStore()
 const { currentCity } = storeToRefs(cityStore)
 
 // 日期格式化
-const nowDate = new Date()
-const startDay = ref(formatMonthDay(nowDate))
-const newDate = new Date()
-newDate.setDate(nowDate.getDate() + 1)
-const endDay = ref(formatMonthDay(newDate))
-const stayDay = ref(ctcjs(diffDays(nowDate, newDate)))
+const mainStore = useMainStore()
+const {startDay, endDay} = storeToRefs(mainStore)
+
+const startDayStr = computed(() => formatMonthDay(startDay.value))
+const endDayStr = computed(() => formatMonthDay(endDay.value))
+const stayDay = ref(ctcjs(diffDays(startDay.value, endDay.value)))
 
 // calendar选择器相关操作
 const calendarShow = ref(false)
 const onConfirm = (value) => {
-  startDay.value = formatMonthDay(value[0])
-  endDay.value = formatMonthDay(value[1])
+  mainStore.startDay = value[0]
+  mainStore.endDay = value[1]
   stayDay.value = ctcjs(diffDays(value[0], value[1]))
   calendarShow.value = false
 }

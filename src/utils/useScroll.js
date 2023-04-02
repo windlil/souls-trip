@@ -3,13 +3,14 @@ import { throllte } from "./throttle"
 //监听屏幕滚动
 const useScroll = () => {
   let isScrollEnd = ref(false)
+  let scrollTop = ref(0)
+  let scrollHeight = ref(0)
+  let clientHeight = ref(0)
   const scrollListenerHandler = throllte(() => {
-    console.log('滚动')
-    const scrollTop = document.documentElement.scrollTop
-    const scrollHeight = document.documentElement.scrollHeight
-    const clientHeight = document.documentElement.clientHeight
-    if(scrollHeight <= scrollTop + clientHeight + 100) {
-      console.log('大于')
+    scrollTop.value = document.documentElement.scrollTop
+    scrollHeight.value = document.documentElement.scrollHeight
+    clientHeight.value = document.documentElement.clientHeight
+    if(scrollHeight.value <= scrollTop.value + clientHeight.value + 180) {
       isScrollEnd.value = true
     }
   }, 100) 
@@ -20,7 +21,10 @@ const useScroll = () => {
     window.removeEventListener('scroll', scrollListenerHandler)
   })
   return {
-    isScrollEnd
+    isScrollEnd,
+    scrollTop,
+    scrollHeight,
+    clientHeight
   }
 }
 

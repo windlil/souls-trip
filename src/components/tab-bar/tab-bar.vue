@@ -52,7 +52,7 @@ const isCurrent = (index, item) => {
   height: 50px;
   border-top: 1px solid #eee;
   background-color: #fff;
-  z-index: 99999;
+  z-index: 9;
   .tab-bar-item {
     flex: 1;
     display: flex;

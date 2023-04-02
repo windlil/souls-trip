@@ -14,7 +14,11 @@
 
     <home-categories/>
 
+    <search-bar v-if="isShowSearchBar"/>
+
     <home-content />
+
+
   </div>
 </template>
 
@@ -27,6 +31,8 @@ import homeCategories from './components/home-categories.vue';
 import homeContent from './components/home-content.vue';
 import useScroll from '../../utils/useScroll';
 import { watch } from 'vue';
+import { computed } from '@vue/reactivity';
+import searchBar from '../../components/search-bar/search-bar.vue'
 
 const homeStore = useHomeStore()
 homeStore.getHotSuggests()
@@ -34,15 +40,19 @@ homeStore.getCategories()
 homeStore.getHomeList()
 
 
-const { isScrollEnd } = useScroll()
+const { isScrollEnd, scrollTop } = useScroll()
 
 watch(isScrollEnd, () => {
-  console.log(isScrollEnd.value)
   if(isScrollEnd.value) {
     homeStore.getHomeList().then(() => {
       isScrollEnd.value = false
     })
   }
+})
+
+
+const isShowSearchBar = computed(() => {
+  return scrollTop.value >= 350
 })
 
 </script>
@@ -54,6 +64,8 @@ watch(isScrollEnd, () => {
       width: 100%;
     }
   }
+
+
 }
 
 .session {
