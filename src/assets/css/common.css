@@ -1,6 +1,9 @@
 :root {
   --primary-color: #ff9854;
   --main-gray: #5c5c5c;
+  --van-nav-bar-text-color: var(--primary-color) !important;
+  --van-nav-bar-icon-color: var(--primary-color) !important;
+  --van-nav-bar-title-text-color: var(--primary-color) !important;
 }
 
 body {
